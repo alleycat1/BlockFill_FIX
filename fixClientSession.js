@@ -168,7 +168,10 @@ function FixClientSession(fixVersion, senderCompID, targetCompID, opt) {
         self.timeOfLastIncoming = new Date().getTime();
         self._sendState({ timeOfLastIncoming: self.timeOfLastIncoming });
 
-        console.log(fix);
+        // Printing Feed data
+        //console.log("Received Data:");
+        //console.log(fix);
+        global.fixValues[fix['55']] = fix['268'];
 
         // ########### Private Methods ###########
         var heartbeat = function() {
@@ -313,10 +316,6 @@ function FixClientSession(fixVersion, senderCompID, targetCompID, opt) {
         var result = checkSequenceNumber(fix);
         if (result) {
             switch(msgType) {
-                case 'W':
-                    console.log("received msg" + JSON.stringify(fix));
-                    break;
-
                 case '4': // SequenceReset message
                     if (_.isUndefined(fix['123']) || fix['123'] === 'N') {
                         var resetseqnostr = fix['36'];

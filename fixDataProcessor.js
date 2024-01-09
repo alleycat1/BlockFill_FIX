@@ -16,7 +16,6 @@ function FixDataProcessor(fixVersion) {
 
   this.processData = function(data) {
     self.buffer = self.buffer + data;
-    console.log("received data");
     while (self.buffer.length > 0) {
       if (self.buffer.length <= ENDOFTAG8) {
           return;
